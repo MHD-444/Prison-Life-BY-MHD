@@ -1,0 +1,115 @@
+if game.PlaceId == 155615604 then
+    local Library = loadstring(gameHttpGet(httpsraw.githubusercontent.comxHeptcKavo-UI-Librarymainsource.lua))()
+    local Window = Library.CreateLib(Prison Life, Sentinel)
+ 
+    -- MAIN
+    local Main = WindowNewTab(Main)
+    local MainSection = MainNewSection(Main)
+ 
+    MainSectionNewDropdown(Give Gun, Gives the localplayer a gun, {M9, Remington 870, AK-47}, function(v)
+        local A_1 = gameGetService(Workspace)[Prison_ITEMS].giver[v].ITEMPICKUP
+        local Event = gameGetService(Workspace).Remote.ItemHandler
+        EventInvokeServer(A_1)
+    end)
+ 
+    MainSectionNewDropdown(Gun Mod, Makes the gun op, {M9, Remington 870, AK-47}, function(v)
+        local module = nil
+        if gameGetService(Players).LocalPlayer.BackpackFindFirstChild(v) then
+            module = require(gameGetService(Players).LocalPlayer.Backpack[v].GunStates)
+        elseif gameGetService(Players).LocalPlayer.CharacterFindFirstChild(v) then
+            module = require(gameGetService(Players).LocalPlayer.Character[v].GunStates)
+        end
+        if module ~= nil then
+            module[MaxAmmo] = math.huge
+            module[CurrentAmmo] = math.huge
+            module[StoredAmmo] = math.huge
+            module[FireRate] = 0.000001
+            module[Spread] = 0
+            module[Range] = math.huge
+            module[Bullets] = 10
+            module[ReloadTime] = 0.000001
+            module[AutoFire] = true
+        end
+    end)
+ 
+    -- PLAYER
+    local Player = WindowNewTab(Player)
+    local PlayerSection = PlayerNewSection(Player)
+ 
+    PlayerSectionNewSlider(Walkspeed, Changes the walkspeed, 250, 16, function(v)
+        game.Players.LocalPlayer.Character.Humanoid.WalkSpeed = v
+    end)
+ 
+    PlayerSectionNewSlider(Jumppower, Changes the jumppower, 250, 50, function(v)
+        game.Players.LocalPlayer.Character.Humanoid.JumpPower = v
+    end)
+elseif game.PlaceId == 3956818381 then
+    local Library = loadstring(gameHttpGet(httpsraw.githubusercontent.comxHeptcKavo-UI-Librarymainsource.lua))()
+    local Window = Library.CreateLib(Ninja Legends, Sentinel)
+ 
+    -- MAIN
+    local Main = WindowNewTab(Main)
+    local MainSection = MainNewSection(Main)
+ 
+    MainSectionNewToggle(Auto Swing, Make your player autoswing, function(v)
+        getgenv().autoswing = v
+        while true do
+            if not getgenv().autoswing then return end
+            for _,v in pairs(game.Players.LocalPlayer.BackpackGetChildren()) do
+                if vFindFirstChild(ninjitsuGain) then
+                    game.Players.LocalPlayer.Character.HumanoidEquipTool(v)
+                    break
+                end
+            end
+            local A_1 = swingKatana
+            local Event = gameGetService(Players).LocalPlayer.ninjaEvent
+            EventFireServer(A_1)
+            wait(0.1)
+        end
+    end)
+ 
+    MainSectionNewToggle(Auto Sell, Makes your player autosell, function(v)
+        getgenv().autosell = v
+        while true do
+            if getgenv().autoswing == false then return end
+            gameGetService(Workspace).sellAreaCircles[sellAreaCircle16].circleInner.CFrame = game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame
+            wait(0.1)
+            gameGetService(Workspace).sellAreaCircles[sellAreaCircle16].circleInner.CFrame = CFrame.new(0,0,0)
+            wait(0.1)
+        end
+    end)
+ 
+    MainSectionNewButton(Unlock all islands, Unlocks all islands, function()
+        local oldcframe = game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame
+        for _,v in pairs(gameGetService(Workspace).islandUnlockPartsGetChildren()) do
+            game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = v.CFrame
+            wait(0.1)
+        end
+        wait(0.1)
+        game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = oldcframe
+    end)
+    
+    MainSectionNewToggle(Auto buy all swords, Auto buys all swords, function(v)
+        getgenv().buyswords = v
+        while true do
+            if not getgenv().buyswords then return end
+            local A_1 = buyAllSwords
+            local A_2 = Inner Peace Island
+            local Event = gameGetService(Players).LocalPlayer.ninjaEvent
+            EventFireServer(A_1, A_2)
+            wait(0.5)
+        end
+    end)
+ 
+    MainSectionNewToggle(Auto buy all belts, Auto buys all belts, function(v)
+        getgenv().buybelts = v
+        while true do
+            if not getgenv().buybelts then return end
+            local A_1 = buyAllBelts
+            local A_2 = Inner Peace Island
+            local Event = gameGetService(Players).LocalPlayer.ninjaEvent
+            EventFireServer(A_1, A_2)
+            wait(0.5)
+        end
+    end)
+end
